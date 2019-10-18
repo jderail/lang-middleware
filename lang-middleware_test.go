@@ -10,7 +10,7 @@ type testTuple struct {
 
 func TestParseLangHeader(t *testing.T) {
 
-	i, err := New("en", []string{"en", "fr"})
+	i, err := NewCookieAndHeader("en", []string{"en", "fr"}, "cookie-lang")
 
 	if err != nil {
 		t.Fatal("Failed to initialize LangMiddleware")
@@ -41,21 +41,21 @@ func benchmarkParseLangHeader(i *LangMiddleware, header string, b *testing.B) {
 }
 
 func BenchmarkParseLangHeaderSimple(b *testing.B) {
-	i, _ := New("en", []string{"en", "fr"})
+	i, _ := NewCookieAndHeader("en", []string{"en", "fr"}, "cookie-lang")
 	benchmarkParseLangHeader(i, "en", b)
 }
 
 func BenchmarkParseLangHeaderLocale(b *testing.B) {
-	i, _ := New("en", []string{"en", "fr"})
+	i, _ := NewCookieAndHeader("en", []string{"en", "fr"}, "cookie-lang")
 	benchmarkParseLangHeader(i, "en-US", b)
 }
 
 func BenchmarkParseLangHeaderMultiple(b *testing.B) {
-	i, _ := New("en", []string{"en", "fr"})
+	i, _ := NewCookieAndHeader("en", []string{"en", "fr"}, "cookie-lang")
 	benchmarkParseLangHeader(i, "en, en-US", b)
 }
 
 func BenchmarkParseLangHeaderPonderated(b *testing.B) {
-	i, _ := New("en", []string{"en", "fr"})
+	i, _ := NewCookieAndHeader("en", []string{"en", "fr"}, "cookie-lang")
 	benchmarkParseLangHeader(i, "en-US, fr-BE;q=0.8", b)
 }
